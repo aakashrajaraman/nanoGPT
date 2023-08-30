@@ -8,7 +8,7 @@ import torch.nn.functional as F
 batch_size=32
 block_size = 8
 torch.manual_seed(0)
-learning_rate = 1e-3
+learning_rate = 3e-4
 eval_interval = 500
 eval_iters = 200
 n_embd = 32
@@ -104,9 +104,9 @@ class FFN(nn.Module):
     def __init__(self, n_embd):
         super().__init__()
         self.net = nn.Sequential(
-            nn.Linear(n_embd, n_embd),
+            nn.Linear(n_embd, 4*n_embd),
             nn.ReLU(),
-            nn.Linear(n_embd, n_embd),#adding a layer for residuals
+            nn.Linear(4*n_embd, n_embd),#adding a layer for residuals
         )
     def forward(self, x):
         return self.net(x)
